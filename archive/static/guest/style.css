@@ -1,0 +1,49 @@
+body
+{
+ background-image: url("/static/resource/Bells_image.jpg") ;
+ background-color: #cccccc; /* Used if the image is unavailable */
+ height: 500px; /* You must set a specified height */
+ background-position: center; /* Center the image */
+ background-repeat: no-repeat; /* Do not repeat the image */
+ background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.title{
+    color:hwb(0 97% 3%);
+}
+
+#chat-container {
+    height: 20em;;
+    padding: 10px;
+}
+
+#chat-input {
+    height: 50px;
+}
+
+#chat-area {
+    width: 100%;
+    padding: 4%;
+}
+
+.container {
+    background-color: aliceblue;
+    opacity: 0.9;
+    border-radius: 21px;
+    max-width: 600px;
+    margin-top: 3%;
+}
+
+.title {
+    padding: 10px;
+    color: black;
+}
+
+#chat-send-btn{
+    padding: 10px;
+}
+
+#chat-send-btn {
+    padding: 10px;
+    margin: 0px 6px;
+}

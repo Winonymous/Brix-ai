@@ -1,0 +1,16 @@
+body
+{
+ background-image: url("../resource/Bells_image.jpg");
+}
+
+.title{
+    color:hwb(0 97% 3%);
+}
+
+#chat-container {
+    height: 450px;
+}
+
+#chat-input {
+    height: 100px;
+}

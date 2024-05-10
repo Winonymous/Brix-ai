@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>BRIX AI</title>
+    <style>
+        #chat-container {
+            height: 500px;
+            overflow-y: scroll;
+        }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="static/student/styles.css" />
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5">BRIX AI</h1>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div id="chat-container">
+                    <!-- Chat messages will be inserted here -->
+                    <p class="text-right"><strong>Brix:</strong> Welcome</p>
+                </div>
+                <form id="chat-form" class="mt-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="chat-input" placeholder="Type your query here...">
+                        <button type="submit" class="btn btn-primary" id="chat-send-btn">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="static/student/script.js">
+    </script>
+</body>
+</html>
