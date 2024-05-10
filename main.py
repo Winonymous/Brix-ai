@@ -3,7 +3,7 @@ from flask import Flask, request, render_template, jsonify, url_for, redirect
 from module.findmatch import FindMatch
 from auth.login import valid_login
 
-index_file = "Resource/index.index"
+index_file = "Resource/openai.index"
 model_name = "paraphrase-MiniLM-L6-v2"
 df_file = "Resource/Brix guest query and response.csv"
 

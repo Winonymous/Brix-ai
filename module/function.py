@@ -91,3 +91,29 @@ def write_embeddings_to_vector_store(embeddings, index_name):
     faiss.write_index(index, index_name)  # Save the index to disk
 
     return index
+
+import openai
+import time
+def embed_text_openai(client, text, model="text-embedding-3-small"):
+    """
+    Embed the given text using OPENAI's text-embedding-3-small model.
+
+    Args:
+        text (str): The text to be embedded.
+
+    Returns:
+        numpy.ndarray: The embedded text representation.
+    """
+    text = text.replace("\n", " ")
+    
+    time.sleep(1)
+    return client.embeddings.create(input = [text], model=model).data[0].embedding
+
+import requests
+import os
+def embed_text_huggingfaceapi(texts, model_id = "sentence-transformers/all-MiniLM-L6-v2"):
+    hf_token = os.environ['HF_TOKEN']
+    api_url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{model_id}"
+    headers = {"Authorization": f"Bearer {hf_token}"}
+    response = requests.post(api_url, headers=headers, json={"inputs": texts, "options":{"wait_for_model":True}})
+    return response.json()

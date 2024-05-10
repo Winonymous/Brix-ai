@@ -1,19 +1,20 @@
 import faiss
-from .function import embed_text_huggingface, semantic_search_faiss, _get_relevance_score
+from .function import embed_text_huggingface, semantic_search_faiss, _get_relevance_score, embed_text_huggingfaceapi
 from sentence_transformers import SentenceTransformer
 import pandas as pd
+import numpy as np
 
 class FindMatch():
     def __init__(self, index_file, model_name, df_file) -> None:
         self.index_file = index_file  # Choose a file path to save the FAISS index
-        self.model = SentenceTransformer(model_name)
+        # self.model = SentenceTransformer(model_name)
         self.index = faiss.read_index(index_file)
         self.df = pd.read_csv(df_file)
         self.df.dropna(inplace = True)
 
     
     def find_match(self, query_text, k, threshold = 0.7):
-        query_embedding = embed_text_huggingface(self.model, query_text)
+        query_embedding = np.array(embed_text_huggingfaceapi(query_text))
 
         k = 3  # Retrieve top-k most similar documents
         retrieved_indices = semantic_search_faiss(query_embedding, self.index, k)
@@ -26,7 +27,7 @@ class FindMatch():
         relevant_conversations = self.df.iloc[retrieved_indices]
 
         retrieved = relevant_conversations[relevant_conversations['Questions'].apply(
-            lambda x: _get_relevance_score(embed_text_huggingface(self.model, x), 
+            lambda x: _get_relevance_score(embed_text_huggingfaceapi(x), 
                                         query_embedding)) > threshold]
         
         resp = retrieved['Answers'].values 
@@ -39,9 +40,9 @@ class FindMatch():
     
 def main():
     print("Loading Matcher")
-    matcher = FindMatch("Resource/index.index", 'paraphrase-MiniLM-L6-v2', "Resource/Brix Student Users.csv")
+    matcher = FindMatch("Resource/openai.index", 'paraphrase-MiniLM-L6-v2', "Resource/Brix guest query and response.csv")
     print("Find Match")
-    resp = matcher.find_match("How are you", 1)
+    resp = matcher.find_match("Where is Bells University", 1)
     print(resp)
     
 
