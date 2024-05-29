@@ -1,12 +1,12 @@
-# Solve Sqlite Issue
-import pysqlite3
+__import__('pysqlite3')
 import sys
-#Solve stupid issue
-sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 import socket
 import subprocess
 import time
+
+# import chromadb
 
 # Start chroma server
 chroma_process = subprocess.Popen(['chroma', 'run', '--path', 'Resource/chroma_db', '--port', '12345' ])
