@@ -31,6 +31,11 @@ document.getElementById('question').addEventListener('click', function(event) {
         
         // console.log(request)
 
+        const loaderdiv = document.createElement('div')
+        loaderdiv.classList.add("loader")
+        loaderdiv.classList.add('chat-resp')
+        chatContainer.appendChild(loaderdiv);
+
         fetch(apiEndpoint, {
             method: "POST",
             headers: {
@@ -45,6 +50,8 @@ document.getElementById('question').addEventListener('click', function(event) {
     
                 // console.log(resp)
                 if(data.ok == "True"){
+                    chatContainer.removeChild(loaderdiv);
+
                     // Create a new chat message element
                     const chatMessage = document.createElement('div');
                     chatMessage.classList.add('chat-resp')
