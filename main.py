@@ -2,12 +2,17 @@
 from flask import Flask, request, render_template, jsonify, url_for, redirect, session
 from module.findmatch import FindMatch
 from auth.login import valid_login
-
+import pysqlite3
+import sys
 import chromadb
 from module.pdfretireval import HandBookChat
 from module.chromadbretrieval import ClassRetreival
 import secrets
 import string
+
+#Solve stupid issue
+sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+
 
 def generate_secret_key(length=24):
     alphabet = string.ascii_letters + string.digits + string.punctuation
