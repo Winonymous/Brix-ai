@@ -15,6 +15,16 @@
     <link rel="stylesheet" type="text/css" href="/static/chat_interface/style.css" />
 </head>
 <body>
+    <nav class="nav-bar">
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            {% if name %}
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
     <div class="container">
         <div>
             <h1 class="text-center mt-5 title">BRIX AI</h1>

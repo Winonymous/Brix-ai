@@ -12,6 +12,16 @@
     <title>University Virtual Assistant</title>
 </head>
 <body>
+  <nav class="nav-bar">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        {% if username %}
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+        {% endif %}
+    </ul>
+</nav>
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="wrapper fadeInDown">

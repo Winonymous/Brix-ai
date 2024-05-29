@@ -35,7 +35,6 @@ app.secret_key = generate_secret_key()
 
 @app.route('/')
 def index():
-    print(session['username'])
     if 'username' in session:
         return redirect(url_for('user', username = session['username']))
     return redirect(url_for('login'))
