@@ -163,4 +163,6 @@ cython_debug/
 data/
 .vscode/
 
+
+Resource/chroma_db
 training_script
