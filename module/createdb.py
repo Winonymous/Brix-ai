@@ -31,7 +31,7 @@ def createretrivealdb(client, df_file, embeddings = HuggingFaceHubEmbeddings()):
 
         print(not_added_df)
 
-        if len(not_added_df > 0):
+        if len(not_added_df) > 0:
             collection.add(
                 documents=list(not_added_df['Questions']),
                 ids=list(not_added_df['S/N'].astype(str)),
