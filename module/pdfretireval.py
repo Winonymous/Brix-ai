@@ -1,8 +1,6 @@
 from .utils.utils import extract_pdf, load_prompt
 
 import os
-import chromadb
-
 import pandas as pd
 
 from langchain.chains import LLMChain
@@ -14,7 +12,7 @@ from langchain.chains.question_answering import load_qa_chain
 
 
 class HandBookChat():
-    def __init__(self, pdf_file, client = None, llm_id = None, llm = None, embeddings = None, 
+    def __init__(self, pdf_file, llm_id = None, llm = None, embeddings = None, 
                  prompt_path = "module/prompts/basicqa.txt", map_prompt_path = "module/prompts/question_prompt_template.txt", 
                  combine_prompt_path = "module/prompts/combine_prompt_template.txt", refine_prompt_path = "module/prompts/refine_prompt_template.txt", 
                  initial_question_prompt_path = "module/prompts/initial_question_prompt_template.txt", response_refine_path = "module/prompts/refine_response.txt",
@@ -92,12 +90,6 @@ class HandBookChat():
             refine_prompt=refine_prompt,
         )
 
-        ## Collection 
-        if client:
-            self.vector_index = Chroma.from_documents(
-                self.pages, self.embeddings, client=client, collection_name="new_pdf_document"
-            ).as_retriever()
-
         ## Refine response Guest
         response_refine_prompt = load_prompt(response_refine_path)
         prompt = PromptTemplate(
@@ -158,15 +150,11 @@ class HandBookChat():
     
 
 def main():
-    # Chroma Client
-    chroma_client = chromadb.HttpClient(host='localhost', port=8000)
-
-
     # print(os.environ['HF_TOKEN'])
     file_path = "Resource/Bells-Revised-Students-Handbook-Updated-version-1.pdf"
     llm_id = "mistralai/Mistral-7B-Instruct-v0.2"
 
-    chat = HandBookChat(file_path, client=chroma_client, llm_id = llm_id)
+    chat = HandBookChat(file_path, llm_id = llm_id)
 
     print("=================================================================")
     question = "What college am I in"

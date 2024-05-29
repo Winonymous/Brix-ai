@@ -30,18 +30,6 @@ class FindMatch():
         score = _get_relevance_score(embed_text_huggingfaceapi(relevant_conversations['Questions'].values[0]), query_embedding)
 
         return relevant_conversations['Answers'].values[0], score
-
-        # retrieved = relevant_conversations[relevant_conversations['Questions'].apply(
-        #     lambda x: _get_relevance_score(embed_text_huggingfaceapi(x), 
-        #                                 query_embedding)) > threshold]
-        
-        # # resp = retrieved['Answers'].values 
-        # if len(resp) > 0:
-        #     return resp[0], _get_relevance_score(
-        # else:
-        #      return "I don't know"
-        # # except:
-        #     return ["I don't know"]
     
 def main():
     print("Loading Matcher")
