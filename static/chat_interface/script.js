@@ -12,17 +12,8 @@ document.getElementById('question').addEventListener('click', function(event) {
 
 
     if (query != ""){
-        if (buttonpart.getAttribute("name")){
-            request = {
-                msg: query,
-                name: buttonpart.getAttribute("name"),
-                department: buttonpart.getAttribute("department")
-            }
-        } 
-        else{
-            request = {
-                msg: query
-            }
+        request = {
+            msg: query
         }
     
         const chatMessage = document.createElement('div');
