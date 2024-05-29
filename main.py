@@ -1,8 +1,3 @@
-import pysqlite3
-import sys
-#Solve stupid issue
-sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
-
 # import flast module
 from flask import Flask, request, render_template, jsonify, url_for, redirect, session
 from module.findmatch import FindMatch
@@ -20,12 +15,13 @@ def generate_secret_key(length=24):
 
 index_file = "Resource/openai.index"
 model_name = "paraphrase-MiniLM-L6-v2"
+
 df_file = "Resource/Brix guest query and response.csv"
 
 match_finder = FindMatch(index_file, model_name, df_file)
 
 # Chroma Client
-chroma_client = chromadb.PersistentClient(path="Resource/chroma_db")
+chroma_client = chromadb.HttpClient(host='localhost', port=1224)
 
 # print(os.environ['HF_TOKEN'])
 file_path = "Resource/Bells-Revised-Students-Handbook-Updated-version-1.pdf"
@@ -80,6 +76,8 @@ def hello_world():
 
     question = data['msg']
 
+    print(question)
+
     answer, dist = RetrivalModel.get_response(question)
     if dist > 0.5:
         answer = chat.respond(question, type = "refine")
@@ -98,4 +96,4 @@ def logout():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run(debug=True, port=4000)

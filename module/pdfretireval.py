@@ -1,4 +1,4 @@
-from .utils import extract_pdf, load_prompt
+from .utils.utils import extract_pdf, load_prompt
 
 import os
 import chromadb
@@ -159,7 +159,8 @@ class HandBookChat():
 
 def main():
     # Chroma Client
-    chroma_client = chromadb.PersistentClient(path="Resource/chroma_db")
+    chroma_client = chromadb.HttpClient(host='localhost', port=8000)
+
 
     # print(os.environ['HF_TOKEN'])
     file_path = "Resource/Bells-Revised-Students-Handbook-Updated-version-1.pdf"
