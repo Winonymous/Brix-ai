@@ -28,7 +28,7 @@ df_file = "Resource/Brix guest query and response.csv"
 match_finder = FindMatch(index_file, model_name, df_file)
 
 # Chroma Client
-chroma_client = chromadb.HttpClient(host='localhost', port=1224)
+chroma_client = chromadb.HttpClient(host='localhost', port=1234)
 
 # print(os.environ['HF_TOKEN'])
 file_path = "Resource/Bells-Revised-Students-Handbook-Updated-version-1.pdf"

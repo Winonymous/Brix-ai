@@ -7,7 +7,7 @@ import time
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 # import chromadb
-chroma_port = 12345  # Replace with the actual port number
+chroma_port = 1234  # Replace with the actual port number
 subprocess.run(["chroma", "run", "--path", "Resource/chroma_db", "--port", str(chroma_port)])
 
 # Wait for the localhost server to be ready
