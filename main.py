@@ -1,3 +1,10 @@
+# Solve Sqlite Issue
+import pysqlite3
+import sys
+#Solve stupid issue
+sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+
+
 # import flast module
 from flask import Flask, request, render_template, jsonify, url_for, redirect, session
 from module.findmatch import FindMatch
