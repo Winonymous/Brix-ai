@@ -87,12 +87,12 @@ def write_embeddings_to_vector_store(embeddings, index_name):
         None
     """
     index = faiss.IndexFlatL2(embeddings.shape[1])  # Create a flat index with inner product (IP) similarity
-    index.add(embeddings)  # Add the embeddings to the index
+    index.add(embeddings)  # type: ignore # Add the embeddings to the index
     faiss.write_index(index, index_name)  # Save the index to disk
 
     return index
 
-import openai
+# import openai
 import time
 def embed_text_openai(client, text, model="text-embedding-3-small"):
     """
@@ -117,15 +117,3 @@ def embed_text_huggingfaceapi(texts, model_id = "sentence-transformers/all-MiniL
     headers = {"Authorization": f"Bearer {hf_token}"}
     response = requests.post(api_url, headers=headers, json={"inputs": texts, "options":{"wait_for_model":True}})
     return response.json()
-
-
-from langchain_community.document_loaders import PyPDFLoader
-def extract_pdf(pdf_file):
-  pdf_loader = PyPDFLoader(pdf_file)
-  pages = pdf_loader.load_and_split()
-
-  return pages
-
-def load_prompt(text_file):
-    f = open(text_file, "r")
-    return f.read()

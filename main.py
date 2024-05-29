@@ -40,12 +40,12 @@ def login():
     if request.method == 'POST':
         vl = valid_login(request.form['username'],
                        request.form['password'])
-        print(len(vl))
-        if len(vl) > 0:
-            session['username'] = vl["Name"]
-            session['Department'] = vl["Department"]
+        print(len(vl)) # type: ignore 
+        if len(vl) > 0: # type: ignore
+            session['username'] = vl["Name"] # type: ignore
+            session['Department'] = vl["Department"] # type: ignore
 
-            return redirect(url_for('user', username = vl["Name"]))
+            return redirect(url_for('user', username = vl["Name"])) # type: ignore
         else:
             error = 'Invalid username/password'
     # the code below is executed if the request method
@@ -68,7 +68,7 @@ def chat_interface(name = None):
 def hello_world():
     data = request.json
 
-    question = data['msg']
+    question = data['msg'] # type: ignore
 
     print(question)
 

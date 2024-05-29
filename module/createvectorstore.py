@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
-from module.utils.utils import embed_text_huggingface, write_embeddings_to_vector_store, embed_text_openai, embed_text_huggingfaceapi
-from sentence_transformers import SentenceTransformer
-from openai import OpenAI
+from utils.utils import embed_text_huggingface, write_embeddings_to_vector_store, embed_text_openai, embed_text_huggingfaceapi
+# from sentence_transformers import SentenceTransformer
+# from openai import OpenAI
 
 class vector():
     def __init__(self, name, df_file) -> None:

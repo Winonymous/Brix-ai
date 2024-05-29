@@ -1,13 +1,14 @@
-from langchain_core.embeddings import Embeddings
-from chromadb.api.types import EmbeddingFunction, Documents
+from langchain_community.document_loaders import PyPDFLoader
 
-class LangChainEmbeddingAdapter(EmbeddingFunction[Documents]):
-    def __init__(self, ef: Embeddings):
-        self.ef = ef
+def extract_pdf(pdf_file):
+  pdf_loader = PyPDFLoader(pdf_file)
+  pages = pdf_loader.load_and_split()
 
-    def __call__(self, input: Documents) -> Embeddings:
-        return self.ef.embed_documents(input)
-    
+  return pages
+
+def load_prompt(text_file):
+    f = open(text_file, "r")
+    return f.read()
     
     
     

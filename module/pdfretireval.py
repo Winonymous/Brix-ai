@@ -1,11 +1,11 @@
-from .utils.utils import extract_pdf, load_prompt
+from .utils.langchainutils import extract_pdf, load_prompt
 
 import os
 import pandas as pd
 
 from langchain.chains import LLMChain
 from langchain_core.prompts import PromptTemplate
-from langchain_chroma import Chroma
+# from langchain_chroma import Chroma
 from langchain_community.embeddings import HuggingFaceHubEmbeddings
 from langchain_huggingface.llms import HuggingFaceEndpoint
 from langchain.chains.question_answering import load_qa_chain
@@ -25,18 +25,18 @@ class HandBookChat():
         if llm_id:
             self.llm_id = llm_id
             self.llm = HuggingFaceEndpoint(
-                repo_id= self.llm_id, max_length=128, temperature=0.5, huggingfacehub_api_token=os.environ['HF_TOKEN']
-                )
-            self.embeddings = HuggingFaceHubEmbeddings()
+                repo_id= self.llm_id, temperature=0.5, huggingfacehub_api_token=os.environ['HF_TOKEN']
+                ) # type: ignore
+            self.embeddings = HuggingFaceHubEmbeddings() # type: ignore
         elif llm:
             self.llm = llm
         elif embeddings:
             self.embeddings = embeddings
         
         if not self.llm:
-            raise "LLM model not specified"
+            raise TypeError
         if not self.embeddings:
-            raise "embeddings not specified"
+            raise TypeError
         
 
         ## Basic Prompt
@@ -132,12 +132,6 @@ class HandBookChat():
         
         elif type == "refine":
             response = self.refine_chain({"input_documents": pages, "question": question})
-
-        elif type == "qa_similartiy":
-            docs = self.vector_index.get_relevant_documents(question)
-            response = self.map_reduce_chain(
-                {"input_documents": docs, "question": question}
-            )
 
         return response['output_text']
     
