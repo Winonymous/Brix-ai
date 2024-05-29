@@ -26,6 +26,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+Resource/chroma_db
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
@@ -164,5 +165,4 @@ data/
 .vscode/
 
 
-Resource/chroma_db
 training_script
