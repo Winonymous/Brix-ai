@@ -1,17 +1,8 @@
-# Solve Sqlite Issue
-import pysqlite3
-import sys
-#Solve stupid issue
-sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
 
-
-# import flast module
 from flask import Flask, request, render_template, jsonify, url_for, redirect, session
 from module.findmatch import FindMatch
 from auth.login import valid_login
-import chromadb
 from module.pdfretireval import HandBookChat
-from module.chromadbretrieval import ClassRetreival
 import secrets
 import string
     
@@ -27,15 +18,11 @@ df_file = "Resource/Brix guest query and response.csv"
 
 match_finder = FindMatch(index_file, model_name, df_file)
 
-# Chroma Client
-chroma_client = chromadb.HttpClient(host='localhost', port=1234)
-
 # print(os.environ['HF_TOKEN'])
 file_path = "Resource/Bells-Revised-Students-Handbook-Updated-version-1.pdf"
 llm_id = "mistralai/Mistral-7B-Instruct-v0.2"
 
-chat = HandBookChat(file_path, client=chroma_client, llm_id = llm_id)
-RetrivalModel = ClassRetreival(chroma_client)
+chat = HandBookChat(file_path, llm_id = llm_id)
 
 # instance of flask application
 app = Flask(__name__)
@@ -85,7 +72,8 @@ def hello_world():
 
     print(question)
 
-    answer, dist = RetrivalModel.get_response(question)
+    answer, dist = match_finder.find_match("Stupid  Question", 1)
+    
     if dist > 0.5:
         answer = chat.respond(question, type = "refine")
     try:

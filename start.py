@@ -1,4 +1,4 @@
-__import__('pysqlite3')
+import pysqlite3
 import sys
 import socket
 import subprocess

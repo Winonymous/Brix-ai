@@ -13,10 +13,10 @@ class FindMatch():
         self.df.dropna(inplace = True)
 
     
-    def find_match(self, query_text, k, threshold = 0.7):
+    def find_match(self, query_text, k = 3, threshold = 0.7):
         query_embedding = np.array(embed_text_huggingfaceapi(query_text))
 
-        k = 3  # Retrieve top-k most similar documents
+        # k = 3  # Retrieve top-k most similar documents
         retrieved_indices = semantic_search_faiss(query_embedding, self.index, k)
 
         # try: 
@@ -26,23 +26,28 @@ class FindMatch():
         # Retrieve the corresponding conversations
         relevant_conversations = self.df.iloc[retrieved_indices]
 
-        retrieved = relevant_conversations[relevant_conversations['Questions'].apply(
-            lambda x: _get_relevance_score(embed_text_huggingfaceapi(x), 
-                                        query_embedding)) > threshold]
+        print(relevant_conversations['Questions'].values[0])
+        score = _get_relevance_score(embed_text_huggingfaceapi(relevant_conversations['Questions'].values[0]), query_embedding)
+
+        return relevant_conversations['Answers'].values[0], score
+
+        # retrieved = relevant_conversations[relevant_conversations['Questions'].apply(
+        #     lambda x: _get_relevance_score(embed_text_huggingfaceapi(x), 
+        #                                 query_embedding)) > threshold]
         
-        resp = retrieved['Answers'].values 
-        if len(resp) > 0:
-            return resp[0]
-        else:
-             return "I don't know"
-        # except:
+        # # resp = retrieved['Answers'].values 
+        # if len(resp) > 0:
+        #     return resp[0], _get_relevance_score(
+        # else:
+        #      return "I don't know"
+        # # except:
         #     return ["I don't know"]
     
 def main():
     print("Loading Matcher")
     matcher = FindMatch("Resource/openai.index", 'paraphrase-MiniLM-L6-v2', "Resource/Brix guest query and response.csv")
     print("Find Match")
-    resp = matcher.find_match("Where is Bells University", 1)
+    resp = matcher.find_match("Stupid  Question", 1)
     print(resp)
     
 
