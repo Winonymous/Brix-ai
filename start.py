@@ -1,24 +1,14 @@
 __import__('pysqlite3')
 import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-
 import socket
 import subprocess
 import time
 
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 # import chromadb
 chroma_port = 12345  # Replace with the actual port number
-
-# Start chroma server# Python code to be executed before starting the chroma process
-python_code = '__import__("pysqlite3"); import sys; sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")'
-
-python_process = subprocess.Popen(['python', '-c', python_code])
-python_process.wait()
-
-# # Start ChromaDB server with the Python code executed first
-command = ['chroma', 'run', '--path', 'Resource/chroma_db', '--port', str(chroma_port)]
-
-chroma_process = subprocess.Popen(command)
+subprocess.run(["chroma", "run", "--path", "Resource/chroma_db", "--port", str(chroma_port)])
 
 # Wait for the localhost server to be ready
 while True:
