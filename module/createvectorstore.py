@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from function import embed_text_huggingface, write_embeddings_to_vector_store, embed_text_openai, embed_text_huggingfaceapi
+from module.utils import embed_text_huggingface, write_embeddings_to_vector_store, embed_text_openai, embed_text_huggingfaceapi
 from sentence_transformers import SentenceTransformer
 from openai import OpenAI
 

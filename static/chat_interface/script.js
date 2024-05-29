@@ -5,9 +5,24 @@ document.getElementById('question').addEventListener('click', function(event) {
     const query = document.getElementById('chat-input').value;
     const chatContainer = document.getElementById('chat-container');
 
+    const buttonpart = document.getElementById('question')
+
+    // console.log(buttonpart.name)
+    // console.log(buttonpart.getAttribute("department"))
+
+
     if (query != ""){
-        const request = {
-            msg: query
+        if (buttonpart.getAttribute("name")){
+            request = {
+                msg: query,
+                name: buttonpart.getAttribute("name"),
+                department: buttonpart.getAttribute("department")
+            }
+        } 
+        else{
+            request = {
+                msg: query
+            }
         }
     
         const chatMessage = document.createElement('div');
@@ -22,7 +37,9 @@ document.getElementById('question').addEventListener('click', function(event) {
         document.getElementById('chat-input').value = '';
     
         const apiEndpoint = "/question";
-    
+        
+        // console.log(request)
+
         fetch(apiEndpoint, {
             method: "POST",
             headers: {
@@ -35,7 +52,7 @@ document.getElementById('question').addEventListener('click', function(event) {
             .then(data => {
                 resp = data.resp
     
-                console.log(resp)
+                // console.log(resp)
                 if(data.ok == "True"){
                     // Create a new chat message element
                     const chatMessage = document.createElement('div');

@@ -1,5 +1,5 @@
 import faiss
-from .function import embed_text_huggingface, semantic_search_faiss, _get_relevance_score, embed_text_huggingfaceapi
+from .utils import embed_text_huggingface, semantic_search_faiss, _get_relevance_score, embed_text_huggingfaceapi
 from sentence_transformers import SentenceTransformer
 import pandas as pd
 import numpy as np
